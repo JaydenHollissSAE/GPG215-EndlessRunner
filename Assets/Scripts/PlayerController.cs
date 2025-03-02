@@ -17,10 +17,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //transform.rotation = Quaternion.identit;
         if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
         { 
             touching = true;
-            jumpMultiplier += 0.0002f;
+            jumpMultiplier += 0.002f;
         }
         else if ((Input.GetKeyUp(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && applyMove)
         {

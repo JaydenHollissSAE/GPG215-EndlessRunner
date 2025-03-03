@@ -49,7 +49,7 @@ public class BlockCluster : MonoBehaviour
         int selected = Random.Range(0, 4);
         if (selected == 0)
         {
-            Debug.Log("Run 0");
+            //Debug.Log("Run 0");
             int row = Random.Range(0, 5);
             for (int j = 0; j < blocks.Count; j++)
             {
@@ -62,7 +62,7 @@ public class BlockCluster : MonoBehaviour
         }
         else if (selected == 1)
         {
-            Debug.Log("Run 1");
+            //Debug.Log("Run 1");
             //int row = Random.Range(0, 5);
             for (int j = 0; j < blocks.Count; j++)
             {
@@ -81,7 +81,7 @@ public class BlockCluster : MonoBehaviour
         }
         else if (selected == 2)
         {
-            Debug.Log("Run 2");
+            //Debug.Log("Run 2");
             //int row = Random.Range(0, 5);
             for (int j = 0; j < blocks.Count; j++)
             {
@@ -102,7 +102,7 @@ public class BlockCluster : MonoBehaviour
         }
         else if (selected == 3)
         {
-            Debug.Log("Run 3");
+            //Debug.Log("Run 3");
             int row = Random.Range(1, 3);
             for (int j = 0; j < blocks.Count; j++)
             {
@@ -123,7 +123,7 @@ public class BlockCluster : MonoBehaviour
         else
         {
             int toDisable = blocks.Count - 1 - (Random.Range(1, 6));
-            Debug.Log("Run Random");
+            //Debug.Log("Run Random");
             int disabled = 0;
             while (disabled < toDisable)
             {

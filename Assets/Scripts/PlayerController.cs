@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour
             if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
         { 
             touching = true;
-            jumpMultiplier += 0.002f;
+            jumpMultiplier += Time.deltaTime * (0.002f/0.0013f);
+            
         }
         else if ((Input.GetKeyUp(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && applyMove)
         {

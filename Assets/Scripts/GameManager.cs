@@ -32,9 +32,5 @@ public class GameManager : MonoBehaviour
     // Function to get saved data from json 
 
     // Function to save data to json
-    private void Update()
-    {
-        Debug.Log(Time.deltaTime);
-    }
 
 }

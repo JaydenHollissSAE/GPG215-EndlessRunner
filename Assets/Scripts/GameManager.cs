@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public float powerupEndTime;
     public float gameStartTime;
     public float speed = 1.0f;
+    public List<Sprite> spriteList = new List<Sprite>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()

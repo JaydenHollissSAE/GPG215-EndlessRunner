@@ -1126,6 +1126,15 @@ MonoBehaviour:
   powerupEndTime: 0
   gameStartTime: 0
   speed: 1
+  spriteList:
+  - {fileID: 4010910367501080470, guid: e75385bca8b795e4585b1d23016c0683, type: 3}
+  - {fileID: -249953513107605027, guid: 0c4419a79f3171a4084caf4770bebc1c, type: 3}
+  - {fileID: -7269551510558187085, guid: beac227e089e8d34da6accd5d78bbe6e, type: 3}
+  - {fileID: 1187684511864073233, guid: 28c909a84a3e5bb429217847ea718e8a, type: 3}
+  - {fileID: 7964640623646627955, guid: 75ae2b586e5e7ee4a9a61293b8e59d11, type: 3}
+  - {fileID: -6075554297309627831, guid: 6385dd6108612ed43a11c958dd0cf984, type: 3}
+  - {fileID: 5399726614821863029, guid: 0572746a5e417064dae95cdd6bc8abe7, type: 3}
+  - {fileID: -939091275901634917, guid: dbd0936d0ea0f17499f039108a339225, type: 3}
 --- !u!1001 &1524012038
 PrefabInstance:
   m_ObjectHideFlags: 0

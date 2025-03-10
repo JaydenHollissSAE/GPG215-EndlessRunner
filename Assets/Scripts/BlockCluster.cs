@@ -1,14 +1,12 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class BlockCluster : MonoBehaviour
 {
     [SerializeField] private List<GameObject> blocks = new List<GameObject>();
     [SerializeField] private GameObject reset;
     [SerializeField] private bool generateOnStart = true;
+    [SerializeField] private List<Sprite> spriteList = new List<Sprite>();
     private Vector2 resetNewPos;
     private GameManager gameManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,6 +19,7 @@ public class BlockCluster : MonoBehaviour
         }
         reset = GameObject.FindGameObjectWithTag("Reset");
         resetNewPos = new Vector2(reset.transform.position.x, 0);
+        spriteList = gameManager.spriteList;
         if (generateOnStart)
         {
             GenerateCluster();
@@ -38,12 +37,19 @@ public class BlockCluster : MonoBehaviour
             GenerateCluster();
         }
     }
+    void SetTexture(GameObject block)
+    {
+        SpriteRenderer spriteRenderer = block.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = spriteList[Random.Range(0, spriteList.Count)];
+    }
 
     void GenerateCluster()
     {
         for (int i = 0;i < blocks.Count; i++)
         {
-            blocks[i].SetActive(true);
+            GameObject item = blocks[i];
+            item.SetActive(true);
+            SetTexture(item);
         }
         //Debug.Log(disabled.ToString()+ " disabled");
         int selected = Random.Range(0, 4);
@@ -57,7 +63,9 @@ public class BlockCluster : MonoBehaviour
             }
             for (int i = 0; i < 5; i++)
             {
-                blocks[row+i*5].SetActive(true);
+                GameObject item = blocks[row + i * 5];
+                item.SetActive(true);
+                SetTexture(item);
             }
         }
         else if (selected == 1)
@@ -71,12 +79,16 @@ public class BlockCluster : MonoBehaviour
             int amount = Random.Range(0, 5);
             for (int i = 0; i < amount; i++)
             {
-                blocks[0 + i * 5].SetActive(true);
+                GameObject item = blocks[0 + i * 5];
+                item.SetActive(true);
+                SetTexture(item);
             }
             amount = Random.Range(0, 5);
             for (int i = 0; i < amount; i++)
             {
-                blocks[4 + i * 5].SetActive(true);
+                GameObject item = blocks[4 + i * 5];
+                item.SetActive(true);
+                SetTexture(item);
             }
         }
         else if (selected == 2)
@@ -92,12 +104,16 @@ public class BlockCluster : MonoBehaviour
             {
                 if (Random.Range(0, 2) == 1)
                 {
-                    blocks[collumn + i].SetActive(true);
+                    GameObject item = blocks[collumn + i];
+                    item.SetActive(true);
+                    SetTexture(item);
                 }
             }
             for (int i = 0; i < 5; i++)
             {
-                blocks[4 + i*5].SetActive(true);
+                GameObject item = blocks[4 + i * 5];
+                item.SetActive(true);
+                SetTexture(item);
             }
         }
         else if (selected == 3)
@@ -111,13 +127,17 @@ public class BlockCluster : MonoBehaviour
             int amount = Random.Range(0, 5);
             for (int i = 0;i < amount; i++)
             {
-                blocks[row+i*5].SetActive(true);
+                GameObject item = blocks[row + i * 5];
+                item.SetActive(true);
+                SetTexture(item);
             }
             row += 1;
             amount = Random.Range(0, 5);
             for (int i = 0; i < amount; i++)
             {
-                blocks[row + i * 5].SetActive(true);
+                GameObject item = blocks[row + i * 5];
+                item.SetActive(true);
+                SetTexture(item);
             }
         }
         else

@@ -9,16 +9,18 @@ public class PlayerController : MonoBehaviour
     private float jumpEndTime = 0.0f;
     [SerializeField] private float jumpMultiplier = 1.0f;
     private bool touching = false;
+    GameManager gameManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     void Update()
     {
-        //transform.rotation = Quaternion.identit;
-        if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
+            //transform.rotation = Quaternion.identit;
+            if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
         { 
             touching = true;
             jumpMultiplier += 0.002f;
@@ -34,9 +36,13 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (CheckVelocity() < 0.8f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.left, Time.fixedDeltaTime * gameManager.speed);
+        }
         //if (Time.time < jumpEndTime && applyMove)
         //{
-         //   applyMove = false;
+        //   applyMove = false;
         //    Move();
         //}
 
@@ -53,9 +59,15 @@ public class PlayerController : MonoBehaviour
         Move();
     }
 
+    float CheckVelocity()
+    {
+        return Mathf.Max(rb.linearVelocity.y, 0) - Mathf.Min(0, rb.linearVelocity.y);
+    }
+
+
     void Move()
     {
-        if (Mathf.Max(rb.linearVelocity.y, 0) - Mathf.Min(0, rb.linearVelocity.y) < 1f)
+        if (CheckVelocity() < 1f)
         {
             Debug.Log("Velocity.y " + rb.linearVelocity.y.ToString());
             rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);

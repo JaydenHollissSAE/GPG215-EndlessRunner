@@ -28,6 +28,18 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        gameStartTime = Time.time;
+    }
+
+    private void Update()
+    {
+        if (gameActive)
+        {
+            speed += 0.001f * (Time.time - gameStartTime);
+        }
+    }
 
     // Function to get saved data from json 
 

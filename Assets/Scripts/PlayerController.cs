@@ -10,20 +10,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpMultiplier = 1.0f;
     private bool touching = false;
     GameManager gameManager;
+    private GameObject jumpBar;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         gameManager = FindFirstObjectByType<GameManager>();
+        jumpBar = GameObject.FindGameObjectWithTag("JumpBar");
     }
 
     void Update()
     {
-            //transform.rotation = Quaternion.identit;
-            if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
+        jumpBar.transform.localScale = new Vector3((jumpMultiplier - 1f) / 2.3f, 1f, 1f);
+        //transform.rotation = Quaternion.identit;
+        if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
         { 
             touching = true;
-            jumpMultiplier += Time.deltaTime * (0.002f/0.0013f);
+            if (jumpMultiplier <= 2.4f)
+            {
+                jumpMultiplier += Time.deltaTime * (0.002f / 0.0013f);
+            }
             
         }
         else if ((Input.GetKeyUp(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && applyMove)

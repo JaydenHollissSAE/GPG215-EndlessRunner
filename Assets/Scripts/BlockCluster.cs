@@ -6,6 +6,7 @@ public class BlockCluster : MonoBehaviour
     [SerializeField] private List<GameObject> blocks = new List<GameObject>();
     [SerializeField] private GameObject reset;
     [SerializeField] private bool generateOnStart = true;
+    //[SerializeField] private bool isRandom = false;
     [SerializeField] private List<Sprite> spriteList = new List<Sprite>();
     private Vector2 resetNewPos;
     private GameManager gameManager;
@@ -52,9 +53,11 @@ public class BlockCluster : MonoBehaviour
             SetTexture(item);
         }
         //Debug.Log(disabled.ToString()+ " disabled");
+
         int selected = Random.Range(0, 4);
         if (selected == 0)
         {
+            // 2 Rows
             //Debug.Log("Run 0");
             int row = Random.Range(0, 5);
             for (int j = 0; j < blocks.Count; j++)
@@ -70,6 +73,7 @@ public class BlockCluster : MonoBehaviour
         }
         else if (selected == 1)
         {
+
             //Debug.Log("Run 1");
             //int row = Random.Range(0, 5);
             for (int j = 0; j < blocks.Count; j++)

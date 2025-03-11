@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6572548604524614871}
   - component: {fileID: 3411970880285290580}
   m_Layer: 0
-  m_Name: Square (24)
+  m_Name: Block (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 2503141112300519644}
   - component: {fileID: 3254487612823363558}
   m_Layer: 0
-  m_Name: Square (6)
+  m_Name: Block (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 4367329535212985064}
   - component: {fileID: 3908909708820886268}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Block (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 8862640977839547856}
   - component: {fileID: 6268463896064706131}
   m_Layer: 0
-  m_Name: Square (23)
+  m_Name: Block (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 6613407575992837041}
   - component: {fileID: 7303079199387346530}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 3344817413393736076}
   - component: {fileID: 9192093195451260784}
   m_Layer: 0
-  m_Name: Square (9)
+  m_Name: Block (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -877,6 +877,7 @@ MonoBehaviour:
   blocks: []
   reset: {fileID: 0}
   generateOnStart: 1
+  spriteList: []
 --- !u!61 &-2826548144933796023
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -935,7 +936,7 @@ GameObject:
   - component: {fileID: 1976657617472453316}
   - component: {fileID: 7470192149382329845}
   m_Layer: 0
-  m_Name: Square (11)
+  m_Name: Block (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1069,7 +1070,7 @@ GameObject:
   - component: {fileID: 1089129481762761188}
   - component: {fileID: 7435105162797317793}
   m_Layer: 0
-  m_Name: Square (22)
+  m_Name: Block (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1203,7 +1204,7 @@ GameObject:
   - component: {fileID: 8837678370349783202}
   - component: {fileID: 2635984674719779971}
   m_Layer: 0
-  m_Name: Square (16)
+  m_Name: Block (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1337,7 +1338,7 @@ GameObject:
   - component: {fileID: 6214185627998058145}
   - component: {fileID: 4539178820128601629}
   m_Layer: 0
-  m_Name: Square (4)
+  m_Name: Block (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1471,7 +1472,7 @@ GameObject:
   - component: {fileID: 3091852964758456563}
   - component: {fileID: 8349624645536836157}
   m_Layer: 0
-  m_Name: Square (13)
+  m_Name: Block (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1605,7 +1606,7 @@ GameObject:
   - component: {fileID: 91471205140849885}
   - component: {fileID: 7931769308434549623}
   m_Layer: 0
-  m_Name: Square (12)
+  m_Name: Block (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1739,7 +1740,7 @@ GameObject:
   - component: {fileID: 5806334875373671712}
   - component: {fileID: 7811463295557291681}
   m_Layer: 0
-  m_Name: Square (8)
+  m_Name: Block (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1873,7 +1874,7 @@ GameObject:
   - component: {fileID: 2929045976865423414}
   - component: {fileID: 1884648256631051300}
   m_Layer: 0
-  m_Name: Square (15)
+  m_Name: Block (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2007,7 +2008,7 @@ GameObject:
   - component: {fileID: 4861794226604303200}
   - component: {fileID: 8368613433705776147}
   m_Layer: 0
-  m_Name: Square (14)
+  m_Name: Block (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2141,7 +2142,7 @@ GameObject:
   - component: {fileID: 515148767115384347}
   - component: {fileID: 5711668469382166646}
   m_Layer: 0
-  m_Name: Square (20)
+  m_Name: Block (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2275,7 +2276,7 @@ GameObject:
   - component: {fileID: 699012251741563634}
   - component: {fileID: 4210941342904766262}
   m_Layer: 0
-  m_Name: Square (19)
+  m_Name: Block (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2409,7 +2410,7 @@ GameObject:
   - component: {fileID: 6200068380554568414}
   - component: {fileID: 5891858780200853936}
   m_Layer: 0
-  m_Name: Square (7)
+  m_Name: Block (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2543,7 +2544,7 @@ GameObject:
   - component: {fileID: 3901017142469246738}
   - component: {fileID: 6734560276802065946}
   m_Layer: 0
-  m_Name: Square (2)
+  m_Name: Block (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2677,7 +2678,7 @@ GameObject:
   - component: {fileID: 7661815311623776935}
   - component: {fileID: 5816119890847976379}
   m_Layer: 0
-  m_Name: Square (10)
+  m_Name: Block (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2811,7 +2812,7 @@ GameObject:
   - component: {fileID: 6675397862198690894}
   - component: {fileID: 7702898238935315959}
   m_Layer: 0
-  m_Name: Square (5)
+  m_Name: Block (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2945,7 +2946,7 @@ GameObject:
   - component: {fileID: 6674074768733536222}
   - component: {fileID: 5097456751151841047}
   m_Layer: 0
-  m_Name: Square (21)
+  m_Name: Block (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3079,7 +3080,7 @@ GameObject:
   - component: {fileID: 6847590607995018451}
   - component: {fileID: 1446191267149560472}
   m_Layer: 0
-  m_Name: Square (17)
+  m_Name: Block (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3213,7 +3214,7 @@ GameObject:
   - component: {fileID: 5982225012992689832}
   - component: {fileID: 3352531701182464614}
   m_Layer: 0
-  m_Name: Square (18)
+  m_Name: Block (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3347,7 +3348,7 @@ GameObject:
   - component: {fileID: 9131129757966806680}
   - component: {fileID: 3099739143710605265}
   m_Layer: 0
-  m_Name: Square (3)
+  m_Name: Block (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

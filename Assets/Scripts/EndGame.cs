@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.PlayerLoop.EarlyUpdate;
 
 public class EndGame : MonoBehaviour
 {

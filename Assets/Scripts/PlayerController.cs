@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit2D hit2D = Physics2D.Raycast(transform.position+ Vector3.down, Vector2.down, 1.00f);
         bool check = false;
-        if (hit2D.transform.gameObject.name.Contains("Block"))
+        if (hit2D && hit2D.transform.gameObject.name.Contains("Block"))
         {
             check = true;
         }

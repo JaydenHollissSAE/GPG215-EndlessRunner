@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
             jumpEndTime = Time.deltaTime + 0.5f;
             ProcessInputs();
         }
+        Debug.Log(rb.linearVelocity);
 
     }
 
@@ -48,6 +49,8 @@ public class PlayerController : MonoBehaviour
         {
             applyMove = true;
             transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.left, Time.fixedDeltaTime * gameManager.speed);
+            Debug.Log("Moving with stage");
+            rb.AddForce(Vector2.down);
         }
         else 
         {
@@ -58,6 +61,7 @@ public class PlayerController : MonoBehaviour
         //   applyMove = false;
         //    Move();
         //}
+        Debug.Log(rb.linearVelocity);
 
     }
 
@@ -79,12 +83,36 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
     {
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position+ Vector3.down, Vector2.down, 1.00f);
+        //bool checking = true;
+        float offsetBuffer = transform.localScale.x/2;
+        float offset = -1* offsetBuffer;
         bool check = false;
-        if (hit2D && hit2D.transform.gameObject.name.Contains("Block"))
+        int checkedCount = 0;
+        Vector3 postion = transform.position;
+        //Vector3 newoffset = new Vector3 (0, -0.2f, 0);
+        while (checkedCount < 2)
         {
-            check = true;
+            
+            postion.x += offset;
+            RaycastHit2D hit2D = Physics2D.Raycast(postion + Vector3.down, Vector3.down, 0.6f);
+            Debug.DrawRay(postion + Vector3.down, Vector2.down);
+            if (hit2D && hit2D.transform.gameObject.name.Contains("Block"))
+            {
+                check = true;
+                checkedCount = 2;
+            }
+            else
+            {
+                offset *= -2;
+            }
+            checkedCount++;
+
         }
+        if (check)
+        {
+            Debug.Log("Block Hit by Ray");
+        }
+
         //Debug.Log(hit2D.transform.gameObject.name);
         //Debug.Log(check);
         return check;

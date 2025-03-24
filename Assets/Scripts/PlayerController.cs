@@ -8,9 +8,12 @@ public class PlayerController : MonoBehaviour
     private bool applyMove = true;
     private float jumpEndTime = 0.0f;
     [SerializeField] private float jumpMultiplier = 1.0f;
+    public float jumpMultiplierMax = 2.4f;
     GameManager gameManager;
     private GameObject jumpBar;
     private GameObject sprite;
+    public float moveXBase = 0.5f;
+    public float moveYBase = 1f;
 
     void Start()
     {
@@ -28,7 +31,7 @@ public class PlayerController : MonoBehaviour
         sprite.transform.localPosition = new Vector3(0f, -1f * ((jumpMultiplier - 1f) / 5f), 0f);
         if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
         { 
-            if (jumpMultiplier <= 2.4f)
+            if (jumpMultiplier <= jumpMultiplierMax)
             {
                 jumpMultiplier += Time.deltaTime * (0.002f / 0.0013f);
             }
@@ -49,7 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             applyMove = true;
             transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.left, Time.fixedDeltaTime * gameManager.speed);
-            Debug.Log("Moving with stage");
+            //Debug.Log("Moving with stage");
             rb.AddForce(Vector2.down);
         }
         else 
@@ -61,7 +64,7 @@ public class PlayerController : MonoBehaviour
         //   applyMove = false;
         //    Move();
         //}
-        Debug.Log(rb.linearVelocity);
+        //Debug.Log(rb.linearVelocity);
 
     }
 
@@ -69,12 +72,13 @@ public class PlayerController : MonoBehaviour
     {
         //float moveX = Input.GetAxisRaw("Horizontal");
         //float moveY = Input.GetAxisRaw("Vertical");
-        float moveX = 0.5f + jumpMultiplier/100f;
-        float moveY = 1*jumpMultiplier;
+        float moveX = moveXBase+ jumpMultiplier/100f;
+        float moveY = moveYBase*jumpMultiplier;
         //Debug.Log(moveY);
         moveDirection = new Vector2(moveX, moveY);
         Move();
     }
+
 
     float CheckVelocity()
     {

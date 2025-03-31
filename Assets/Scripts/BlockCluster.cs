@@ -6,6 +6,7 @@ public class BlockCluster : MonoBehaviour
     [SerializeField] private List<GameObject> blocks = new List<GameObject>();
     [SerializeField] private GameObject reset;
     [SerializeField] private bool generateOnStart = true;
+    [SerializeField] private int minBlocks = 2;
     //[SerializeField] private bool isRandom = false;
     [SerializeField] private List<Sprite> spriteList = new List<Sprite>();
     private Vector2 resetNewPos;
@@ -40,9 +41,9 @@ public class BlockCluster : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, transform.position+Vector3.left, Time.fixedDeltaTime*gameManager.speed);
+        transform.position = Vector2.MoveTowards(transform.position, transform.position+Vector3.left, Time.deltaTime*gameManager.speed);
         Vector2 newPos = new Vector2(transform.position.x, 0);
         if (Vector2.Distance(newPos, resetNewPos) <= 5f)
         {
@@ -65,21 +66,25 @@ public class BlockCluster : MonoBehaviour
             SetTexture(item);
         }
         //Debug.Log(disabled.ToString()+ " disabled");
-
+        int blocksAmount = cluserSquareSize*cluserSquareSize;
         int selected = Random.Range(0, 4);
+        int activatedAmount = 0;
+
+        for (int j = 0; j < blocks.Count; j++)
+        {
+            blocks[j].SetActive(false);
+        }
+
         if (selected == 0)
         {
             // 2 Rows
             //Debug.Log("Run 0");
             int row = Random.Range(0, cluserSquareSize);
-            for (int j = 0; j < blocks.Count; j++)
-            {
-                blocks[j].SetActive(false);
-            }
             for (int i = 0; i < cluserSquareSize; i++)
             {
                 GameObject item = blocks[row + i * cluserSquareSize];
                 item.SetActive(true);
+                activatedAmount++;
                 SetTexture(item);
             }
         }
@@ -88,15 +93,12 @@ public class BlockCluster : MonoBehaviour
 
             //Debug.Log("Run 1");
             //int row = Random.Range(0, 5);
-            for (int j = 0; j < blocks.Count; j++)
-            {
-                blocks[j].SetActive(false);
-            }
             int amount = Random.Range(0, cluserSquareSize);
             for (int i = 0; i < amount; i++)
             {
                 GameObject item = blocks[0 + i * cluserSquareSize];
                 item.SetActive(true);
+                activatedAmount++;
                 SetTexture(item);
             }
             amount = Random.Range(0, cluserSquareSize);
@@ -104,6 +106,7 @@ public class BlockCluster : MonoBehaviour
             {
                 GameObject item = blocks[4 + i * cluserSquareSize];
                 item.SetActive(true);
+                activatedAmount++;
                 SetTexture(item);
             }
         }
@@ -111,10 +114,6 @@ public class BlockCluster : MonoBehaviour
         {
             //Debug.Log("Run 2");
             //int row = Random.Range(0, 5);
-            for (int j = 0; j < blocks.Count; j++)
-            {
-                blocks[j].SetActive(false);
-            }
             int collumn = Random.Range(0, cluserSquareSize);
             for (int i = 0; i < cluserSquareSize; i++)
             {
@@ -122,6 +121,7 @@ public class BlockCluster : MonoBehaviour
                 {
                     GameObject item = blocks[collumn + i];
                     item.SetActive(true);
+                    activatedAmount++;
                     SetTexture(item);
                 }
             }
@@ -129,6 +129,7 @@ public class BlockCluster : MonoBehaviour
             {
                 GameObject item = blocks[4 + i * cluserSquareSize];
                 item.SetActive(true);
+                activatedAmount++;
                 SetTexture(item);
             }
         }
@@ -136,15 +137,12 @@ public class BlockCluster : MonoBehaviour
         {
             //Debug.Log("Run 3");
             int row = Random.Range(1, 3);
-            for (int j = 0; j < blocks.Count; j++)
-            {
-                blocks[j].SetActive(false);
-            }
             int amount = Random.Range(0, cluserSquareSize);
             for (int i = 0;i < amount; i++)
             {
                 GameObject item = blocks[row + i * cluserSquareSize];
                 item.SetActive(true);
+                activatedAmount++;
                 SetTexture(item);
             }
             row += 1;
@@ -153,6 +151,7 @@ public class BlockCluster : MonoBehaviour
             {
                 GameObject item = blocks[row + i * cluserSquareSize];
                 item.SetActive(true);
+                activatedAmount++;
                 SetTexture(item);
             }
         }
@@ -164,13 +163,31 @@ public class BlockCluster : MonoBehaviour
             while (disabled < toDisable)
             {
                 GameObject item = blocks[Random.Range(0, blocks.Count)];
-                if (item.activeSelf)
+                if (!item.activeSelf)
                 {
-                    item.SetActive(false);
+                    item.SetActive(true);
+                    activatedAmount++;
                     disabled += 1;
                 }
             }
 
         }
+        
+        if (activatedAmount < minBlocks) 
+        { 
+            for (int i = 0; i < minBlocks; i++)
+            {
+                GameObject item = blocks[Random.Range(0, blocks.Count)];
+                if (!item.activeSelf)
+                {
+                    item.SetActive(true);
+                }
+                else
+                {
+                    i--;
+                }
+            }
+        }
+
     }
 }

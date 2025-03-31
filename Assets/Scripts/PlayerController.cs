@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private GameObject sprite;
     public float moveXBase = 0.5f;
     public float moveYBase = 1f;
+    private float velocityAt0 = 0f;
+    private float unstick = 0f;
 
     void Start()
     {
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Update2();
         moveSpeed = 5f + (gameManager.speed -1f)/5f;
         jumpBar.transform.localScale = new Vector3((jumpMultiplier - 1f) / 2.3f, 1f, 1f);
         sprite.transform.localScale = new Vector3(1f, 1f - (jumpMultiplier - 1f) / 2.3f, 1f);
@@ -42,22 +46,42 @@ public class PlayerController : MonoBehaviour
             jumpEndTime = Time.deltaTime + 0.5f;
             ProcessInputs();
         }
-        Debug.Log(rb.linearVelocity);
+        //Debug.Log(rb.linearVelocity);
 
     }
 
-    void FixedUpdate()
+    void Update2()
     {
-        if (CheckVelocity() < 0.8f && IsGrounded())
+        if (unstick > 0f) 
         {
-            applyMove = true;
-            transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.left, Time.fixedDeltaTime * gameManager.speed);
-            //Debug.Log("Moving with stage");
-            rb.AddForce(Vector2.down);
+            transform.position = Vector2.MoveTowards(transform.position, transform.position+Vector3.down, Time.deltaTime * gameManager.speed);
+            unstick -= Time.deltaTime;
+        }
+
+        else if (CheckVelocity() < 0.8f)
+        {
+            if (IsGrounded())
+            {
+                applyMove = true;
+                transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.left, Time.deltaTime * gameManager.speed);
+                //Debug.Log("Moving with stage");
+                rb.AddForce(Vector2.down);
+            }
+            else if (velocityAt0 > 3f && IsStuck())
+            {
+                Debug.LogError("Player Stuck");
+                unstick = 0.3f;
+            }
+            else
+            {
+                velocityAt0 += Time.deltaTime;
+                Debug.Log("Add velocityAt0");
+            }
         }
         else 
         {
             applyMove = false;
+            velocityAt0 = 0f;
         }
         //if (Time.time < jumpEndTime && applyMove)
         //{
@@ -92,14 +116,14 @@ public class PlayerController : MonoBehaviour
         float offset = -1* offsetBuffer;
         bool check = false;
         int checkedCount = 0;
-        Vector3 postion = transform.position;
+        Vector3 position = transform.position;
         //Vector3 newoffset = new Vector3 (0, -0.2f, 0);
         while (checkedCount < 2)
         {
             
-            postion.x += offset;
-            RaycastHit2D hit2D = Physics2D.Raycast(postion + Vector3.down, Vector3.down, 0.6f);
-            Debug.DrawRay(postion + Vector3.down, Vector2.down);
+            position.x += offset;
+            RaycastHit2D hit2D = Physics2D.Raycast(position + Vector3.down, Vector3.down, 0.6f);
+            Debug.DrawRay(position + Vector3.down, Vector2.down);
             if (hit2D && hit2D.transform.gameObject.name.Contains("Block"))
             {
                 check = true;
@@ -114,7 +138,22 @@ public class PlayerController : MonoBehaviour
         }
         if (check)
         {
-            Debug.Log("Block Hit by Ray");
+            //Debug.Log("Block Hit by Ray");
+        }
+
+        //Debug.Log(hit2D.transform.gameObject.name);
+        //Debug.Log(check);
+        return check;
+    }
+    bool IsStuck()
+    {
+        bool check = false;
+
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position + Vector3.right, Vector3.right, 0.6f);
+        Debug.DrawRay(transform.position + Vector3.right, Vector2.right);
+        if (hit2D && hit2D.transform.gameObject.name.Contains("Block"))
+        {
+            check = true;
         }
 
         //Debug.Log(hit2D.transform.gameObject.name);

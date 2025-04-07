@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.lootlocker.lootlockersdk": "https://github.com/LootLocker/unity-sdk.git",
     "com.unity.adaptiveperformance": "5.1.2",
     "com.unity.adaptiveperformance.google.android": "5.1.2",
     "com.unity.adaptiveperformance.samsung.android": "5.0.0",

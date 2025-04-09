@@ -8,6 +8,9 @@ TagManager:
   - JumpBar
   - CurrentScore
   - HighScore
+  - SpritePixels
+  - Colours
+  - Pixels
   layers:
   - Default
   - TransparentFX

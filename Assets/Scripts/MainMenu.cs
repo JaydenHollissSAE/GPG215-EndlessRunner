@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
    
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("MainGameLoop");
         Debug.Log("Loading Main Game Loop");
     }
 
@@ -15,4 +15,14 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quitting Game");
         Application.Quit();
     }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+    public void CharacterCreator()
+    {
+        SceneManager.LoadScene("CharacterCreator");
+    }
+
 }

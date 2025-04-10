@@ -1223,6 +1223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  noJump: 0
   jumpMultiplier: 1
   jumpMultiplierMax: 2.4
   moveXBase: 0.5
@@ -1404,6 +1405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1069398947}
+  player: {fileID: 315971480}
 --- !u!114 &366418760
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveDirection;
     private bool applyMove = true;
     private float jumpEndTime = 0.0f;
+    public bool noJump = false;
     [SerializeField] private float jumpMultiplier = 1.0f;
     public float jumpMultiplierMax = 2.4f;
     GameManager gameManager;
@@ -28,25 +29,33 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Update2();
-        moveSpeed = 5f + (gameManager.speed -1f)/5f;
-        jumpBar.transform.localScale = new Vector3((jumpMultiplier - 1f) / 2.3f, 1f, 1f);
-        sprite.transform.localScale = new Vector3(1f, 1f - (jumpMultiplier - 1f) / 2.3f, 1f);
-        sprite.transform.localPosition = new Vector3(0f, -1f * ((jumpMultiplier - 1f) / 5f), 0f);
-        if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
-        { 
-            if (jumpMultiplier <= jumpMultiplierMax)
-            {
-                jumpMultiplier += Time.deltaTime * (0.002f / 0.0013f);
-            }
-            
-        }
-        else if ((Input.GetKeyUp(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && applyMove)
+        if (!noJump)
         {
-            jumpEndTime = Time.deltaTime + 0.5f;
-            ProcessInputs();
+            Update2();
+            moveSpeed = 5f + (gameManager.speed -1f)/5f;
+            jumpBar.transform.localScale = new Vector3((jumpMultiplier - 1f) / 2.3f, 1f, 1f);
+            sprite.transform.localScale = new Vector3(1f, 1f - (jumpMultiplier - 1f) / 2.3f, 1f);
+            sprite.transform.localPosition = new Vector3(0f, -1f * ((jumpMultiplier - 1f) / 5f), 0f);
+            if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
+            { 
+                if (jumpMultiplier <= jumpMultiplierMax)
+                {
+                    jumpMultiplier += Time.deltaTime * (0.002f / 0.0013f);
+                }
+            
+            }
+            else if ((Input.GetKeyUp(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && applyMove)
+            {
+                jumpEndTime = Time.deltaTime + 0.5f;
+                ProcessInputs();
+            }
+            //Debug.Log(rb.linearVelocity);            
         }
-        //Debug.Log(rb.linearVelocity);
+        else
+        {
+            noJump = false;
+        }
+
 
     }
 

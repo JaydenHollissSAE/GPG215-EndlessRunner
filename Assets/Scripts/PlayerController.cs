@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     private bool applyMove = true;
     private float jumpEndTime = 0.0f;
     public bool noJump = false;
-    [SerializeField] private float jumpMultiplier = 1.0f;
+    private float jumpMultiplier = 0.5f;
+    private float jumpMultiplierDefault;
     public float jumpMultiplierMax = 2.4f;
     GameManager gameManager;
     private GameObject jumpBar;
@@ -19,12 +20,19 @@ public class PlayerController : MonoBehaviour
     private float velocityAt0 = 0f;
     private float unstick = 0f;
 
+    private float scaleAdjustment = 2.3f;
+    private float scalePosAdjustment = 5f;
+
+
     void Start()
     {
+        jumpMultiplierDefault = jumpMultiplier;
         sprite = transform.GetChild(0).gameObject;
         rb = GetComponent<Rigidbody2D>();
         gameManager = FindFirstObjectByType<GameManager>();
         jumpBar = GameObject.FindGameObjectWithTag("JumpBar");
+        scaleAdjustment = ((jumpMultiplierMax - jumpMultiplierDefault) ) / 0.608695652f;
+        scalePosAdjustment = ((jumpMultiplierMax - jumpMultiplierDefault) ) / 0.28f;
     }
 
     void Update()
@@ -33,9 +41,9 @@ public class PlayerController : MonoBehaviour
         {
             Update2();
             moveSpeed = 5f + (gameManager.speed -1f)/5f;
-            jumpBar.transform.localScale = new Vector3((jumpMultiplier - 1f) / 2.3f, 1f, 1f);
-            sprite.transform.localScale = new Vector3(1f, 1f - (jumpMultiplier - 1f) / 2.3f, 1f);
-            sprite.transform.localPosition = new Vector3(0f, -1f * ((jumpMultiplier - 1f) / 5f), 0f);
+            jumpBar.transform.localScale = new Vector3((jumpMultiplier - jumpMultiplierDefault) / 2.3f, 1f, 1f);
+            sprite.transform.localScale = new Vector3(1f, 1f - (jumpMultiplier - jumpMultiplierDefault) / scaleAdjustment, 1f);
+            sprite.transform.localPosition = new Vector3(0f, -1f * ((jumpMultiplier - jumpMultiplierDefault) / scalePosAdjustment), 0f);
             if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
             { 
                 if (jumpMultiplier <= jumpMultiplierMax)
@@ -46,7 +54,7 @@ public class PlayerController : MonoBehaviour
             }
             else if ((Input.GetKeyUp(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && applyMove)
             {
-                jumpEndTime = Time.deltaTime + 0.5f;
+                //jumpEndTime = Time.deltaTime + 0.5f;
                 ProcessInputs();
             }
             //Debug.Log(rb.linearVelocity);            
@@ -74,17 +82,17 @@ public class PlayerController : MonoBehaviour
                 applyMove = true;
                 transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.left, Time.deltaTime * gameManager.speed);
                 //Debug.Log("Moving with stage");
-                rb.AddForce(Vector2.down);
+                //rb.AddForce(Vector2.down);
             }
             else if (velocityAt0 > 3f && IsStuck())
             {
-                Debug.LogError("Player Stuck");
+                //Debug.LogError("Player Stuck");
                 unstick = 0.3f;
             }
             else
             {
                 velocityAt0 += Time.deltaTime;
-                Debug.Log("Add velocityAt0");
+                //Debug.Log("Add velocityAt0");
             }
         }
         else 
@@ -105,8 +113,10 @@ public class PlayerController : MonoBehaviour
     {
         //float moveX = Input.GetAxisRaw("Horizontal");
         //float moveY = Input.GetAxisRaw("Vertical");
+        //Debug.Log(jumpMultiplier);
         float moveX = moveXBase+ jumpMultiplier/100f;
         float moveY = moveYBase*jumpMultiplier;
+        //Debug.Log(moveX);
         //Debug.Log(moveY);
         moveDirection = new Vector2(moveX, moveY);
         Move();
@@ -145,10 +155,7 @@ public class PlayerController : MonoBehaviour
             checkedCount++;
 
         }
-        if (check)
-        {
-            //Debug.Log("Block Hit by Ray");
-        }
+
 
         //Debug.Log(hit2D.transform.gameObject.name);
         //Debug.Log(check);
@@ -176,7 +183,7 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Velocity.y " + rb.linearVelocity.y.ToString());
             rb.linearVelocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * 5f);
-            jumpMultiplier = 1.0f;
+            jumpMultiplier = jumpMultiplierDefault;
             //moveDirection = Vector2.zero;
         }
         applyMove = true;

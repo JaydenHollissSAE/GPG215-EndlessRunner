@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpriteCreator : MonoBehaviour
 {
@@ -12,6 +13,26 @@ public class SpriteCreator : MonoBehaviour
     [SerializeField] Color[] allPixels;
     [SerializeField] List<AudioClip> paintSounds = new List<AudioClip>();
     AudioSource audioSource;
+    public GameObject activeColourObject = null;
+
+
+    public void ChangeColour(GameObject inputObject)
+    {
+        if (inputObject != activeColourObject)
+        {
+            if (activeColourObject != null) activeColourObject.GetComponent<ToggleImageVisability>().ToggleImage(true);
+            selectedColour = inputObject.transform.GetChild(0).GetComponent<Image>().color;
+            Debug.Log(selectedColour);
+            activeColourObject = inputObject;
+        }
+        else
+        {
+            activeColourObject.GetComponent<ToggleImageVisability>().ToggleImage(true);
+            activeColourObject = null;
+            selectedColour = Color.white;
+        }
+       
+    }
 
     private void Start()
     {
@@ -85,54 +106,59 @@ public class SpriteCreator : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            //Debug.Log("Pressed");
-            //Debug.Log(Camera.main.ScreenPointToRay(Input.GetTouch(0).position));
+            if (selectedColour != Color.white)
+            {
+
+                //Debug.Log("Pressed");
+                //Debug.Log(Camera.main.ScreenPointToRay(Input.GetTouch(0).position));
 
 
-            RaycastHit2D rayHit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+                RaycastHit2D rayHit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
             
 
-            // If it hits something...
-            if (rayHit.collider != null)
-            {
-                GameObject hitObj = rayHit.transform.gameObject;
-                if (hitObj.tag == "Colours")
+                // If it hits something...
+                if (rayHit.collider != null)
                 {
-                    selectedColour = hitObj.GetComponent<SpriteRenderer>().color;
-                }
-                else if (hitObj.tag == "Pixels")
-                {
-                    int posX = 1000;
-                    int posY = 1000;
-                    if (hitObj.name.Contains("Square"))
+                    GameObject hitObj = rayHit.transform.gameObject;
+                    //if (hitObj.tag == "Colours")
+                    //{
+                    //    selectedColour = hitObj.GetComponent<SpriteRenderer>().color;
+                    //}
+                    //else 
+                    if (hitObj.tag == "Pixels")
                     {
-                        if (!hitObj.name.Contains("("))
+                        int posX = 1000;
+                        int posY = 1000;
+                        if (hitObj.name.Contains("Square"))
                         {
-                            posX = 0;
+                            if (!hitObj.name.Contains("("))
+                            {
+                                posX = 0;
+                            }
+                            else
+                            {
+                                posX = int.Parse(hitObj.name.Replace("Square (", "").Replace(")", ""));
+                            }
+                            posY = int.Parse(hitObj.transform.parent.gameObject.name.Replace("Row (", "").Replace(")", ""));
+
                         }
-                        else
+                        else if (hitObj.name.Contains(","))
                         {
-                            posX = int.Parse(hitObj.name.Replace("Square (", "").Replace(")", ""));
+                            string[] pos = hitObj.name.Split(',');
+                            posX = int.Parse(pos[1]);
+                            posY = int.Parse(pos[0]);
                         }
-                        posY = int.Parse(hitObj.transform.parent.gameObject.name.Replace("Row (", "").Replace(")", ""));
+                        //Debug.Log(posX + " " + posY);
+                        if (posX != 1000 && posY != 1000)
+                        {
+                            spriteRenderers[posX + posY*16].color = selectedColour;
+                            UpdatePixel(posX, posY, selectedColour);
+                        }
 
                     }
-                    else if (hitObj.name.Contains(","))
-                    {
-                        string[] pos = hitObj.name.Split(',');
-                        posX = int.Parse(pos[1]);
-                        posY = int.Parse(pos[0]);
-                    }
-                    //Debug.Log(posX + " " + posY);
-                    if (posX != 1000 && posY != 1000)
-                    {
-                        spriteRenderers[posX + posY*16].color = selectedColour;
-                        UpdatePixel(posX, posY, selectedColour);
-                    }
-
                 }
             }
-        }
+            }
 
     }
 

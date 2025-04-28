@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ImageLoader : MonoBehaviour
 {
@@ -75,11 +76,20 @@ public class ImageLoader : MonoBehaviour
             // Load image data to new Texture2D object
             Texture2D texture = new Texture2D(16, 16);
             texture.LoadImage(spriteBytes);
+            if (texture.width > 16 || texture.height > 16)
+            {
+                SpriteCreator.WriteTextureToFileFunc(texture);
+                LoadSprite();
+            }
+            else
+            {
+                Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), texture.height);
 
-            Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), texture.height);
+                // Use the loaded texture on object
+                spriteRenderer.sprite = newSprite;
+            }
 
-            // Use the loaded texture on object
-            spriteRenderer.sprite = newSprite;
+
         }
         else
         {

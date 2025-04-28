@@ -14,6 +14,7 @@ public class SpriteCreator : MonoBehaviour
     private void Start()
     {
         targetTexture = LoadTexture(targetTexture);
+        WriteTextureToFile();
         cam = GetComponent<Camera>();
         GameObject tmpObj = GameObject.FindGameObjectWithTag("SpritePixels");
         for (int i = 0; i < tmpObj.transform.childCount; i++)
@@ -44,6 +45,7 @@ public class SpriteCreator : MonoBehaviour
             Texture2D texture = new Texture2D(2, 2);
             texture.LoadImage(imageBytes);
 
+
             // Use the loaded texture on object
             //textureRenderer.material.mainTexture = texture;
             return texture;
@@ -51,16 +53,27 @@ public class SpriteCreator : MonoBehaviour
         else
         {
             Debug.LogError("Texture file not found at path: " + filePath);
-            WriteTextureToFile();
+            
             return originalTexture;
         }
     }
 
 
-    private void WriteTextureToFile()
+    private void WriteTextureToFile(Texture2D inputFile = null)
     {
-        byte[] textureData = targetTexture.EncodeToPNG();
+        if (inputFile == null) inputFile = targetTexture;
+        WriteTextureToFileFunc(inputFile);
+    }
+
+    public static void WriteTextureToFileFunc(Texture2D inputFile)
+    {
+        if (inputFile.width > 16 || inputFile.height > 16)
+        {
+            TextureScale.Point(inputFile, 16, 16);
+        }
+        byte[] textureData = inputFile.EncodeToPNG();
         File.WriteAllBytes(Path.Combine(Application.persistentDataPath, "sprite.png"), textureData);
+
     }
 
 

@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        MusicManager.Instance.ClickSound();
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         player.noJump = true;
@@ -16,12 +17,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        MusicManager.Instance.ClickSound();
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
     }
 
     public void BackToHome(int sceneID)
     {
+        MusicManager.Instance.ClickSound();
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneID);
     }

@@ -10,9 +10,12 @@ public class SpriteCreator : MonoBehaviour
     [SerializeField] private Color selectedColour = Color.white;
     private Camera cam;
     [SerializeField] Color[] allPixels;
+    [SerializeField] List<AudioClip> paintSounds = new List<AudioClip>();
+    AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         targetTexture = LoadTexture(targetTexture);
         WriteTextureToFile();
         cam = GetComponent<Camera>();
@@ -147,7 +150,8 @@ public class SpriteCreator : MonoBehaviour
 
     // Update is called once per frame
     void UpdatePixel(int x, int y, Color newColour)
-    {           
+    {
+        if (!audioSource.isPlaying) audioSource.PlayOneShot(paintSounds[Random.Range(0, paintSounds.Count)]);
         targetTexture.SetPixel(x, y, newColour);
         targetTexture.Apply();
         WriteTextureToFile();

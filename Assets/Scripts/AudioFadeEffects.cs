@@ -5,34 +5,47 @@ public static class AudioFadeEffects
 {
     public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime, bool stopAudio = true)
     {
-        float startVolume = audioSource.volume;
-
-        while (audioSource.volume > 0)
+        if (audioSource != null)
         {
-            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+            float startVolume = audioSource.volume;
 
-            yield return null;
+            while (audioSource.volume > 0)
+            {
+                audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+                yield return null;
+            }
+
+
+            if (stopAudio)
+            {
+                audioSource.Stop();
+                audioSource.volume = startVolume;
+            }
+            else audioSource.volume = 0;
         }
 
-
-        if (stopAudio) audioSource.Stop();
-        audioSource.volume = startVolume;
     }
 
     public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime, bool stopAudio = true)
     {
-        float startVolume = 0.2f;
-
-        audioSource.volume = 0;
-        if (stopAudio) audioSource.Play();
-
-        while (audioSource.volume < 1.0f)
+        if (audioSource != null)
         {
-            audioSource.volume += startVolume * Time.deltaTime / FadeTime;
+            float startVolume = 0.2f;
 
-            yield return null;
+            audioSource.volume = 0;
+            if (stopAudio) audioSource.Play();
+
+            while (audioSource.volume < 1.0f)
+            {
+                audioSource.volume += startVolume * Time.deltaTime / FadeTime;
+
+                yield return null;
+            }
+
+            audioSource.volume = 1f;
         }
 
-        audioSource.volume = 1f;
+
     }
 }

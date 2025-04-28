@@ -6,10 +6,12 @@ public class DataSetter : MonoBehaviour
     void Start()
     {
         MusicManager.Instance.PlayMusic1();
-        gameManager = FindFirstObjectByType<GameManager>();
+
+        gameManager = GameManager.instance;
         gameManager.speed = 1f;
         gameManager.gameStartTime = Time.time;
         gameManager.currentScore = 0;
         gameManager.resetScores = true;
+        gameManager.gameActive = true;
     }
 }

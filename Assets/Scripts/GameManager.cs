@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public int coinsCollected;
     public List<string> unlockedThemes = new List<string>();
     public string selectedTheme;
-    public bool gameActive;
+    public bool gameActive = false;
     public string activePowerup;
     public float powerupEndTime;
     public float gameStartTime;
@@ -56,40 +56,44 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (resetScores)
+        if (gameActive)
         {
-            //GameManager.instance.highScoreUpdate.Invoke(highScore);
-            //GameManager.instance.scoreUpdate.Invoke(currentScore);
-            currentScoreText = GameObject.FindGameObjectWithTag("CurrentScore").GetComponent<TextMeshProUGUI>();
-            highScoreText = GameObject.FindGameObjectWithTag("HighScore").GetComponent<TextMeshProUGUI>();
-            ScoreChange();
-            HighScoreChange();
+            if (resetScores)
+            {
+                //GameManager.instance.highScoreUpdate.Invoke(highScore);
+                //GameManager.instance.scoreUpdate.Invoke(currentScore);
+                currentScoreText = GameObject.FindGameObjectWithTag("CurrentScore").GetComponent<TextMeshProUGUI>();
+                highScoreText = GameObject.FindGameObjectWithTag("HighScore").GetComponent<TextMeshProUGUI>();
+                ScoreChange();
+                HighScoreChange();
+            }
+            speed += 0.00001f * (Time.time - gameStartTime);
+            currentScore = Mathf.RoundToInt((Time.time - gameStartTime) / 2 * speed);
+            ScoreCheck();
+            HighScoreCheck();
+            ChangeAudio();
+            
         }
-        speed += 0.00001f * (Time.time - gameStartTime);
-        currentScore = Mathf.RoundToInt((Time.time - gameStartTime) / 2 * speed);
-        ScoreCheck();
-        HighScoreCheck();
-        ChangeAudio();
     }
 
     void ChangeAudio()
     {
-        if (currentScore > 70 && currentAudio != 4)
+        if (currentScore > 70 && currentAudio < 4)
         {
             currentAudio = 4;
             MusicManager.Instance.PlayMusic4();
         }
-        else if (currentScore > 50 && currentAudio != 3)
+        else if (currentScore > 50 && currentAudio < 3)
         {
             currentAudio = 3;
             MusicManager.Instance.PlayMusic3();
         }
-        else if (currentScore > 30 && currentAudio != 2)
+        else if (currentScore > 30 && currentAudio < 2)
         {
             currentAudio = 2;
             MusicManager.Instance.PlayMusic2();
         }
-        else if (currentScore > 15 && currentAudio != 1)
+        else if (currentScore > 15 && currentAudio < 1)
         {
             currentAudio = 1;
             MusicManager.Instance.PlayMusic1();

@@ -11,6 +11,7 @@ TagManager:
   - SpritePixels
   - Colours
   - Pixels
+  - LeaderboardItem
   layers:
   - Default
   - TransparentFX

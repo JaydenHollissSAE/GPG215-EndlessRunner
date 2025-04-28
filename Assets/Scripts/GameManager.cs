@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public List<Sprite> spriteList = new List<Sprite>();
     public ScoreUpdate scoreUpdate;
     public HighScoreUpdate highScoreUpdate;
-    public bool resetScores = true;
+    public bool resetScores = false;
     private int currentScoreOld = 0;
     public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI currentScoreText;

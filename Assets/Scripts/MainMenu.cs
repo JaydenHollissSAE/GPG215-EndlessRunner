@@ -34,4 +34,12 @@ public class MainMenu : MonoBehaviour
         Application.OpenURL("https://jaydenholliss.com.au/EndlessJumper/PrivacyPolicy/");
     }
 
+    public void LoadLeaderboard()
+    {
+        MusicManager.Instance.ClickSound();
+        SceneManager.LoadScene("Leaderboard");
+
+    }
+
+
 }

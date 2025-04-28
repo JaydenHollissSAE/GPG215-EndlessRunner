@@ -41,10 +41,7 @@ public class Leaderboard : MonoBehaviour
                 //FetchLootlockerScores();
                 return;
             }
-            Debug.Log(response.text.ToString());
-            jsonInput = response.text.ToString();
-            Debug.Log(jsonInput);
-            ParseLootlocker(jsonInput);
+            ParseLootlocker(response.text.ToString());
             Debug.Log("Successfully got score list!");
         });
         
@@ -53,14 +50,11 @@ public class Leaderboard : MonoBehaviour
 
     void ParseLootlocker(string input)
     {
-        Debug.Log("running");
-        Debug.Log(input);
+        //Debug.Log("running");
+        //Debug.Log(input);
 
         leaderBoardParse = new LeaderBoardParse();
         leaderBoardParse = JsonUtility.FromJson<LeaderBoardParse>(input);
-
-
-
     }
 
 }

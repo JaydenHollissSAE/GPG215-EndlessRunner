@@ -1,3 +1,4 @@
+using LootLocker.Requests;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -182,6 +183,20 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(Path.Combine(Application.persistentDataPath, "save.json"), JsonUtility.ToJson(jsonDataStorage));
     }
 
+    void Start()
+    {
+        LootLockerSDKManager.StartGuestSession((response) =>
+        {
+            if (!response.success)
+            {
+                Debug.Log("Error starting LootLocker Guest Session");
+
+                return;
+            }
+
+            Debug.Log("Successfully started LootLocker Session");
+        });
+    }
 }
 
 
@@ -193,3 +208,4 @@ public class JsonDataStorage
     public float volume = 1f;
     public string username = "";
 }
+

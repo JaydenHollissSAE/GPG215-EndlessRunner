@@ -1,0 +1,12 @@
+# ninja log v5
+61	309	7675219155952573	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	fecc4ac0b6615a84
+338	612	7675219158992331	C:/Users/lathi/OneDrive/Documents/GitHub/GPG215-EndlessRunner/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1m3a2we2/obj/armeabi-v7a/libswappywrapper.so	62b793b372ef01c
+21	1239	7675219165215686	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	8d5c8197148351ca
+29	1268	7675219165515673	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	a5d0dd6087612a3a
+14	1284	7675219165696477	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	22e65dce31f87c36
+51	1362	7675219166528920	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	b15c81ba76ceb0d3
+42	1484	7675219167682943	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	1a1ad03f17b47254
+7	1519	7675219168001779	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	ef54ee54d366d7e
+35	1742	7675219170283550	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	e773ee3b17035228
+1	1875	7675219171529761	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	2a59ec19a4a08e8c
+1876	2062	7675219173363807	C:/Users/lathi/OneDrive/Documents/GitHub/GPG215-EndlessRunner/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1m3a2we2/obj/armeabi-v7a/libgame.so	f962858930ec3e98

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class AudioFadeEffects
 {
-    public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime, bool stopAudio = true)
     {
         float startVolume = audioSource.volume;
 
@@ -14,16 +14,17 @@ public static class AudioFadeEffects
             yield return null;
         }
 
-        audioSource.Stop();
+
+        if (stopAudio) audioSource.Stop();
         audioSource.volume = startVolume;
     }
 
-    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime)
+    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime, bool stopAudio = true)
     {
         float startVolume = 0.2f;
 
         audioSource.volume = 0;
-        audioSource.Play();
+        if (stopAudio) audioSource.Play();
 
         while (audioSource.volume < 1.0f)
         {

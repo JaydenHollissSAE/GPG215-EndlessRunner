@@ -1228,6 +1228,8 @@ MonoBehaviour:
   jumpMultiplierMax: 2.4
   moveXBase: 0.5
   moveYBase: 1
+  jumpSound: {fileID: 8300000, guid: 3b2204a698b3d024ebf672203b82130f, type: 3}
+  landSound: {fileID: 8300000, guid: 16dbdca9c1b69f540905c8235c49eee0, type: 3}
 --- !u!212 &315971481
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1382,8 +1384,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: da3893e21516ddf408553fa9689acf20, type: 3}
+  m_Resource: {fileID: 8300000, guid: da3893e21516ddf408553fa9689acf20, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1391,7 +1393,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 180
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

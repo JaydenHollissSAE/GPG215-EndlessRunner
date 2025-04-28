@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     private int currentScoreOld = 0;
     public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI currentScoreText;
+    private int currentAudio = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,6 +69,31 @@ public class GameManager : MonoBehaviour
         currentScore = Mathf.RoundToInt((Time.time - gameStartTime) / 2 * speed);
         ScoreCheck();
         HighScoreCheck();
+        ChangeAudio();
+    }
+
+    void ChangeAudio()
+    {
+        if (currentScore > 70 && currentAudio != 4)
+        {
+            currentAudio = 4;
+            MusicManager.Instance.PlayMusic4();
+        }
+        else if (currentScore > 50 && currentAudio != 3)
+        {
+            currentAudio = 3;
+            MusicManager.Instance.PlayMusic3();
+        }
+        else if (currentScore > 30 && currentAudio != 2)
+        {
+            currentAudio = 2;
+            MusicManager.Instance.PlayMusic2();
+        }
+        else if (currentScore > 15 && currentAudio != 1)
+        {
+            currentAudio = 1;
+            MusicManager.Instance.PlayMusic1();
+        }
     }
 
     void ScoreCheck()

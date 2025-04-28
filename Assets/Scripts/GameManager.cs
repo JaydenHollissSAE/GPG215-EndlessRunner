@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     private JsonDataStorage jsonDataStorage = null;
     public bool savedGame = false;
     public float volume = 1.0f;
+    public string username = "";
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -144,9 +145,9 @@ public class GameManager : MonoBehaviour
 
     private void UploadScore()
     {
-        string leaderboardKey = "endlessjumperboard1";
+        string leaderboardKey = "endlessjumperboard";
 
-        LootLockerSDKManager.SubmitScore("", highScore, leaderboardKey, (response) =>
+        LootLockerSDKManager.SubmitScore("", highScore, leaderboardKey, "username:"+username , (response) =>
         {
             if (!response.success)
             {
@@ -182,7 +183,7 @@ public class GameManager : MonoBehaviour
         else jsonDataStorage = new JsonDataStorage();
         highScore = jsonDataStorage.highScore;
         volume = jsonDataStorage.volume;
-        //username = jsonDataStorage.username;
+        username = jsonDataStorage.username;
 
 
     }
@@ -196,7 +197,7 @@ public class GameManager : MonoBehaviour
         //jsonDataStorage = new JsonDataStorage();
 
         jsonDataStorage.highScore = highScore;
-        //jsonDataStorage.username = username;
+        jsonDataStorage.username = username;
         jsonDataStorage.volume = volume;
         File.WriteAllText(Path.Combine(Application.persistentDataPath, "save.json"), JsonUtility.ToJson(jsonDataStorage));
         UploadScore();

@@ -142,6 +142,23 @@ public class GameManager : MonoBehaviour
         highScoreText.text = "High Score:\n" + highScore.ToString();
     }
 
+    private void UploadScore()
+    {
+        string leaderboardKey = "endlessjumperboard1";
+
+        LootLockerSDKManager.SubmitScore("", highScore, leaderboardKey, (response) =>
+        {
+            if (!response.success)
+            {
+                Debug.Log("Could not submit score!");
+                Debug.Log(response.errorData.ToString());
+                return;
+            }
+            Debug.Log("Successfully submitted score!");
+
+        });
+    }
+
 
     // Function to get saved data from json 
 
@@ -182,6 +199,7 @@ public class GameManager : MonoBehaviour
         //jsonDataStorage.username = username;
         jsonDataStorage.volume = volume;
         File.WriteAllText(Path.Combine(Application.persistentDataPath, "save.json"), JsonUtility.ToJson(jsonDataStorage));
+        UploadScore();
     }
 
     void Start()

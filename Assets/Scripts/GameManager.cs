@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
             }
 
             Debug.Log("Successfully started LootLocker Session");
-            Leaderboard.FetchLootlockerScores();
+            Leaderboard.instance.FetchLootlockerScores();
         });
     }
 }

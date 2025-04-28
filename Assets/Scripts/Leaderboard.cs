@@ -1,14 +1,33 @@
 using LootLocker.Requests;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class Leaderboard : MonoBehaviour
 {
+    private string jsonInput;
+    public static Leaderboard instance;
+    public LeaderBoardParse leaderBoardParse = new LeaderBoardParse();
+
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
+
+
     void Start()
     {
         //FetchLootlockerScores();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public static void FetchLootlockerScores()
+    public void FetchLootlockerScores()
     {
         string leaderboardKey = "endlessjumperboard";
         int count = 50;
@@ -23,7 +42,41 @@ public class Leaderboard : MonoBehaviour
                 return;
             }
             Debug.Log(response.text.ToString());
+            jsonInput = response.text.ToString();
+            Debug.Log(jsonInput);
+            ParseLootlocker(jsonInput);
             Debug.Log("Successfully got score list!");
         });
+        
     }
+
+
+    void ParseLootlocker(string input)
+    {
+        Debug.Log("running");
+        Debug.Log(input);
+
+        leaderBoardParse = new LeaderBoardParse();
+        leaderBoardParse = JsonUtility.FromJson<LeaderBoardParse>(input);
+
+
+
+    }
+
+}
+
+
+
+[Serializable]
+public class LeaderBoardParse
+{
+    public LeaderBoardItems[] items;
+}
+
+[Serializable]
+public class LeaderBoardItems
+{
+    public string metadata;
+    public int rank;
+    public int score;
 }

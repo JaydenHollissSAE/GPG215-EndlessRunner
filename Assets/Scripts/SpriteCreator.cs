@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,6 +52,15 @@ public class SpriteCreator : MonoBehaviour
             
         }
         LoadTextures();
+        for (int i = 0;i < allPixels.Length; i++)
+        {
+            if (i < 16 || i > 240 || i % 16 == 0 || i % 16 == 15)
+            {
+                UpdatePixel(i % 16, Mathf.FloorToInt(i / 16), Color.white, true);
+            }
+            
+        }
+        
     }
 
 
@@ -151,7 +161,7 @@ public class SpriteCreator : MonoBehaviour
                         //Debug.Log(posX + " " + posY);
                         if (posX != 1000 && posY != 1000)
                         {
-                            spriteRenderers[posX + posY*16].color = selectedColour;
+                            
                             UpdatePixel(posX, posY, selectedColour);
                         }
 
@@ -175,9 +185,10 @@ public class SpriteCreator : MonoBehaviour
 
 
     // Update is called once per frame
-    void UpdatePixel(int x, int y, Color newColour)
+    void UpdatePixel(int x, int y, Color newColour, bool start = false)
     {
-        if (!audioSource.isPlaying) audioSource.PlayOneShot(paintSounds[Random.Range(0, paintSounds.Count)]);
+        spriteRenderers[x + y * 16].color = selectedColour;
+        if (!audioSource.isPlaying && !start) audioSource.PlayOneShot(paintSounds[Random.Range(0, paintSounds.Count)]);
         targetTexture.SetPixel(x, y, newColour);
         targetTexture.Apply();
         WriteTextureToFile();

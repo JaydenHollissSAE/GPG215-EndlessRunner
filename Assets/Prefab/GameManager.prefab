@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1617691357527351188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5542642354600225773}
+  - component: {fileID: 8721847932074902897}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5542642354600225773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617691357527351188}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4508318, y: 12.66, z: -0.06001762}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8721847932074902897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617691357527351188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afdffc2c2cc5bf4799c6bc2a690f495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highScore: 0
+  coinsCollected: 0
+  unlockedThemes: []
+  selectedTheme: 
+  gameActive: 0
+  activePowerup: 
+  powerupEndTime: 0
+  gameStartTime: 0
+  speed: 1
+  currentScore: 0
+  spriteList:
+  - {fileID: 4010910367501080470, guid: e75385bca8b795e4585b1d23016c0683, type: 3}
+  - {fileID: -249953513107605027, guid: 0c4419a79f3171a4084caf4770bebc1c, type: 3}
+  - {fileID: -7269551510558187085, guid: beac227e089e8d34da6accd5d78bbe6e, type: 3}
+  - {fileID: 1187684511864073233, guid: 28c909a84a3e5bb429217847ea718e8a, type: 3}
+  - {fileID: 7964640623646627955, guid: 75ae2b586e5e7ee4a9a61293b8e59d11, type: 3}
+  - {fileID: -6075554297309627831, guid: 6385dd6108612ed43a11c958dd0cf984, type: 3}
+  - {fileID: 5399726614821863029, guid: 0572746a5e417064dae95cdd6bc8abe7, type: 3}
+  - {fileID: -939091275901634917, guid: dbd0936d0ea0f17499f039108a339225, type: 3}
+  scoreUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  highScoreUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  resetScores: 1
+  highScoreText: {fileID: 0}
+  currentScoreText: {fileID: 0}

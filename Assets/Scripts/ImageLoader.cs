@@ -54,6 +54,7 @@ public class ImageLoader : MonoBehaviour
             // Load image data to new Texture2D object
             Texture2D texture = new Texture2D(2, 2);
             texture.LoadImage(imageBytes);
+            texture.filterMode = FilterMode.Point;
 
             // Use the loaded texture on object
             textureRenderer.material.mainTexture = texture;
@@ -75,6 +76,7 @@ public class ImageLoader : MonoBehaviour
 
             // Load image data to new Texture2D object
             Texture2D texture = new Texture2D(16, 16);
+            texture.filterMode = FilterMode.Point;
             texture.LoadImage(spriteBytes);
             if (texture.width > 16 || texture.height > 16)
             {

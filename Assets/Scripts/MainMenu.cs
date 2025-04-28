@@ -29,4 +29,9 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("CharacterCreator");
     }
 
+    public void PrivacyPolicyButton()
+    {
+        Application.OpenURL("https://jaydenholliss.com.au/EndlessJumper/PrivacyPolicy/");
+    }
+
 }

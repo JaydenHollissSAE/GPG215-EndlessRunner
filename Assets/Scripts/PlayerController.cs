@@ -22,10 +22,15 @@ public class PlayerController : MonoBehaviour
 
     private float scaleAdjustment = 2.3f;
     private float scalePosAdjustment = 5f;
+    AudioSource audioSource;
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip landSound;
+    private bool landSoundPlayed = false;
 
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         jumpMultiplierDefault = jumpMultiplier;
         sprite = transform.GetChild(0).gameObject;
         rb = GetComponent<Rigidbody2D>();
@@ -45,7 +50,8 @@ public class PlayerController : MonoBehaviour
             sprite.transform.localScale = new Vector3(1f, 1f - (jumpMultiplier - jumpMultiplierDefault) / scaleAdjustment, 1f);
             sprite.transform.localPosition = new Vector3(0f, -1f * ((jumpMultiplier - jumpMultiplierDefault) / scalePosAdjustment), 0f);
             if ((Input.GetKey(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended) && applyMove))
-            { 
+            {
+                if (!audioSource.isPlaying) audioSource.Play();
                 if (jumpMultiplier <= jumpMultiplierMax)
                 {
                     jumpMultiplier += Time.deltaTime * (0.002f / 0.0013f);
@@ -54,6 +60,10 @@ public class PlayerController : MonoBehaviour
             }
             else if ((Input.GetKeyUp(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && applyMove)
             {
+                StartCoroutine(AudioFadeEffects.FadeOut(audioSource, 0.15f));
+                audioSource.PlayOneShot(jumpSound);
+                landSoundPlayed = false;
+                //audioSource.Stop();
                 //jumpEndTime = Time.deltaTime + 0.5f;
                 ProcessInputs();
             }
@@ -79,6 +89,13 @@ public class PlayerController : MonoBehaviour
         {
             if (IsGrounded())
             {
+                if (!landSoundPlayed) 
+                { 
+                    landSoundPlayed = true;
+                    audioSource.PlayOneShot(landSound); 
+                    
+                }
+
                 applyMove = true;
                 transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.left, Time.deltaTime * gameManager.speed);
                 //Debug.Log("Moving with stage");

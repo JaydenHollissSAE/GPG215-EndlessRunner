@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = 1f * GameManager.instance.volume;
         jumpMultiplierDefault = jumpMultiplier;
         sprite = transform.GetChild(0).gameObject;
         rb = GetComponent<Rigidbody2D>();

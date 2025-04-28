@@ -11,7 +11,7 @@ public static class AudioFadeEffects
 
             while (audioSource.volume > 0)
             {
-                audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+                audioSource.volume -= startVolume * Time.deltaTime / FadeTime * GameManager.instance.volume;
 
                 yield return null;
             }
@@ -31,19 +31,19 @@ public static class AudioFadeEffects
     {
         if (audioSource != null)
         {
-            float startVolume = 0.2f;
+            float startVolume = 0.2f * GameManager.instance.volume;
 
             audioSource.volume = 0;
             if (stopAudio) audioSource.Play();
 
-            while (audioSource.volume < 1.0f)
+            while (audioSource.volume < 1.0f * GameManager.instance.volume)
             {
-                audioSource.volume += startVolume * Time.deltaTime / FadeTime;
+                audioSource.volume += startVolume * Time.deltaTime / FadeTime * GameManager.instance.volume;
 
                 yield return null;
             }
 
-            audioSource.volume = 1f;
+            audioSource.volume = 1f * GameManager.instance.volume;
         }
 
 

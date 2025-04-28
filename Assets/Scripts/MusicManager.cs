@@ -30,6 +30,11 @@ public class MusicManager : MonoBehaviour
 
     }
 
+    public void ChangeVolume(float volume)
+    {
+        activeAudio.volume = volume;
+    }
+
 
 
     public void PlayMenu()
@@ -85,7 +90,7 @@ public class MusicManager : MonoBehaviour
 
     public void ClickSound()
     {
-        musicSources[5].volume = 1.0f;
+        musicSources[5].volume = 1.0f*GameManager.instance.volume;
         musicSources[5].PlayOneShot(clickSound);
     }
 

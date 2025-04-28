@@ -10,6 +10,7 @@ public class EndGame : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = 1.0f * GameManager.instance.volume;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

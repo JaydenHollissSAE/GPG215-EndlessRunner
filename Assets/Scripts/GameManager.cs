@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -36,6 +38,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI currentScoreText;
     private int currentAudio = 0;
+    private JsonDataStorage jsonDataStorage = null;
+    private bool savedGame = false;
+    public float volume = 1.0f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -58,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameActive)
         {
+            savedGame = false;
             if (resetScores)
             {
                 //GameManager.instance.highScoreUpdate.Invoke(highScore);
@@ -73,6 +79,11 @@ public class GameManager : MonoBehaviour
             HighScoreCheck();
             ChangeAudio();
             
+        }
+        else if (!savedGame)
+        {
+            savedGame = true;
+            SaveGame();
         }
     }
 
@@ -134,4 +145,51 @@ public class GameManager : MonoBehaviour
 
     // Function to save data to json
 
+
+    void LoadGame() 
+    {
+        string path = Path.Combine(Application.persistentDataPath, "save.json");
+        if (File.Exists(path))
+        {
+            string[] lines = File.ReadAllLines(path);
+            string jsonText = "";
+            foreach (string line in lines)
+            {
+                jsonText += line;
+            }
+            jsonDataStorage = new JsonDataStorage();
+            jsonDataStorage = JsonUtility.FromJson<JsonDataStorage>(jsonText);
+        }
+        else jsonDataStorage = new JsonDataStorage();
+        highScore = jsonDataStorage.highScore;
+        volume = jsonDataStorage.volume;
+        //username = jsonDataStorage.username;
+
+
+    }
+
+    public void SaveGame()
+    {
+        if (jsonDataStorage == null)
+        {
+            LoadGame();
+        }
+        //jsonDataStorage = new JsonDataStorage();
+
+        jsonDataStorage.highScore = highScore;
+        //jsonDataStorage.username = username;
+        jsonDataStorage.volume = volume;
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, "save.json"), JsonUtility.ToJson(jsonDataStorage));
+    }
+
+}
+
+
+
+[Serializable]
+public class JsonDataStorage
+{
+    public int highScore = 0;
+    public float volume = 1f;
+    public string username = "";
 }

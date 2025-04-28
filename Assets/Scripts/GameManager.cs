@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI currentScoreText;
     private int currentAudio = 0;
     private JsonDataStorage jsonDataStorage = null;
-    private bool savedGame = false;
+    public bool savedGame = false;
     public float volume = 1.0f;
 
 
@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
 
 

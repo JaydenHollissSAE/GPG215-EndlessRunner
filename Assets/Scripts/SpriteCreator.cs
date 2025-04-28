@@ -38,6 +38,7 @@ public class SpriteCreator : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.volume;
         targetTexture = LoadTexture(targetTexture);
         WriteTextureToFile();
         cam = GetComponent<Camera>();

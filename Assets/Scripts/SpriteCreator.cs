@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class SpriteCreator : MonoBehaviour
@@ -12,6 +13,7 @@ public class SpriteCreator : MonoBehaviour
 
     private void Start()
     {
+        targetTexture = LoadTexture(targetTexture);
         cam = GetComponent<Camera>();
         GameObject tmpObj = GameObject.FindGameObjectWithTag("SpritePixels");
         for (int i = 0; i < tmpObj.transform.childCount; i++)
@@ -25,6 +27,43 @@ public class SpriteCreator : MonoBehaviour
         }
         LoadTextures();
     }
+
+
+
+    public Texture2D LoadTexture(Texture2D originalTexture)
+    {
+
+        string filePath = Path.Combine(Application.persistentDataPath, "sprite.png");
+
+        if (File.Exists(filePath))
+        {
+            // Read data
+            byte[] imageBytes = File.ReadAllBytes(filePath);
+
+            // Load image data to new Texture2D object
+            Texture2D texture = new Texture2D(2, 2);
+            texture.LoadImage(imageBytes);
+
+            // Use the loaded texture on object
+            //textureRenderer.material.mainTexture = texture;
+            return texture;
+        }
+        else
+        {
+            Debug.LogError("Texture file not found at path: " + filePath);
+            WriteTextureToFile();
+            return originalTexture;
+        }
+    }
+
+
+    private void WriteTextureToFile()
+    {
+        byte[] textureData = targetTexture.EncodeToPNG();
+        File.WriteAllBytes(Path.Combine(Application.persistentDataPath, "sprite.png"), textureData);
+    }
+
+
 
     private void Update()
     {
@@ -98,5 +137,6 @@ public class SpriteCreator : MonoBehaviour
     {           
         targetTexture.SetPixel(x, y, newColour);
         targetTexture.Apply();
+        WriteTextureToFile();
     }
 }

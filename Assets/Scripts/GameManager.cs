@@ -236,10 +236,11 @@ public class GameManager : MonoBehaviour
 
     void UserNamePrompt()
     {
+        mainMenuPanel.SetActive(false);
         usernamePanel.SetActive(true);
         usernameConfirmButton.onClick.AddListener(SetUserName);
-        Time.timeScale = 0;
-        SaveGame();
+        //Time.timeScale = 0;
+        //SaveGame();
     }
     void SetUserName()
     {
@@ -251,17 +252,18 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (inputName.Length>10)
+        if (inputName.Length>15)
         {
-            usernameErrorText.text = "Max 10 Characters!";
+            usernameErrorText.text = "Max 15 Characters!";
             return;
         }
 
         username = inputName;
         usernameErrorText.text = "";
         usernamePanel.SetActive(false);
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
 
+        mainMenuPanel.SetActive(true);
         SaveGame();
         
     }

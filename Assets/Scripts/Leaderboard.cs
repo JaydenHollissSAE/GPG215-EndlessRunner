@@ -30,7 +30,7 @@ public class Leaderboard : MonoBehaviour
     public void FetchLootlockerScores()
     {
         string leaderboardKey = "endlessjumperboard";
-        int count = 50;
+        int count = 20;
 
         LootLockerSDKManager.GetScoreList(leaderboardKey, count, 0, (response) =>
         {

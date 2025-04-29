@@ -8,8 +8,9 @@ public class LeaderboardSetup : MonoBehaviour
 {
     List<GameObject> placements = new List<GameObject>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnEnable()
     {
+        Leaderboard.instance.FetchLootlockerScores();
         placements = GameObject.FindGameObjectsWithTag("LeaderboardItem").ToList();
 
         List<LeaderBoardItems> leaderBoardItems = Leaderboard.instance.leaderBoardParse.items.ToList();

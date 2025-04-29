@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class ScoreUpdate : UnityEvent<int>
@@ -44,7 +45,12 @@ public class GameManager : MonoBehaviour
     public float volume = 1.0f;
     public string username = "";
 
-
+    [Header("Username UI")]
+    public GameObject usernamePanel;
+    public TMP_InputField usernameInputField;
+    public Button usernameConfirmButton;
+    public TextMeshProUGUI usernameErrorText;
+    public GameObject mainMenuPanel;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -205,18 +211,61 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        LootLockerSDKManager.StartGuestSession((response) =>
+        if(string.IsNullOrEmpty(username))
         {
-            if (!response.success)
+            UserNamePrompt();
+
+        }
+
+        else
+        {
+            mainMenuPanel.SetActive(true);
+            LootLockerSDKManager.StartGuestSession((response) =>
             {
-                Debug.Log("Error starting LootLocker Guest Session");
+                if (!response.success)
+                {
+                    Debug.Log("Error starting LootLocker Guest Session");
 
-                return;
-            }
+                    return;
+                }
 
-            Debug.Log("Successfully started LootLocker Session");
-            Leaderboard.instance.FetchLootlockerScores();
-        });
+                Debug.Log("Successfully started LootLocker Session");
+                Leaderboard.instance.FetchLootlockerScores();
+            });
+        }
+        
+    }
+
+    void UserNamePrompt()
+    {
+        usernamePanel.SetActive(true);
+        usernameConfirmButton.onClick.AddListener(SetUserName);
+
+        Time.timeScale = 0;
+    }
+    void SetUserName()
+    {
+        string inputName = usernameInputField.text.Trim();
+
+        if(string.IsNullOrEmpty(inputName))
+        {
+            usernameErrorText.text = "Name Cannot Be Empty";
+            return;
+        }
+
+        if (inputName.Length>10)
+        {
+            usernameErrorText.text = "Max 10 Characters!";
+            return;
+        }
+
+        username = inputName;
+        usernameErrorText.text = "";
+        usernamePanel.SetActive(false);
+        Time.timeScale = 1;
+
+        SaveGame();
+        
     }
 }
 

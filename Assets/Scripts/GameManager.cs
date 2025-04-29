@@ -214,11 +214,11 @@ public class GameManager : MonoBehaviour
         if(string.IsNullOrEmpty(username))
         {
             UserNamePrompt();
-
         }
 
         else
         {
+            usernamePanel.SetActive(false);
             mainMenuPanel.SetActive(true);
             LootLockerSDKManager.StartGuestSession((response) =>
             {
@@ -240,8 +240,8 @@ public class GameManager : MonoBehaviour
     {
         usernamePanel.SetActive(true);
         usernameConfirmButton.onClick.AddListener(SetUserName);
-
         Time.timeScale = 0;
+        SaveGame();
     }
     void SetUserName()
     {

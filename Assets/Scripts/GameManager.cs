@@ -201,6 +201,10 @@ public class GameManager : MonoBehaviour
             LoadGame();
         }
         //jsonDataStorage = new JsonDataStorage();
+        if (string.IsNullOrEmpty(username))
+        {
+            UserNamePrompt();
+        }
 
         jsonDataStorage.highScore = highScore;
         jsonDataStorage.username = username;
@@ -211,28 +215,22 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if(string.IsNullOrEmpty(username))
+        SaveGame();
+        usernamePanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+        LootLockerSDKManager.StartGuestSession((response) =>
         {
-            UserNamePrompt();
-        }
-
-        else
-        {
-            usernamePanel.SetActive(false);
-            mainMenuPanel.SetActive(true);
-            LootLockerSDKManager.StartGuestSession((response) =>
+            if (!response.success)
             {
-                if (!response.success)
-                {
-                    Debug.Log("Error starting LootLocker Guest Session");
+                Debug.Log("Error starting LootLocker Guest Session");
 
-                    return;
-                }
+                return;
+            }
 
-                Debug.Log("Successfully started LootLocker Session");
-                Leaderboard.instance.FetchLootlockerScores();
-            });
-        }
+            Debug.Log("Successfully started LootLocker Session");
+            Leaderboard.instance.FetchLootlockerScores();
+        });
+
         
     }
 

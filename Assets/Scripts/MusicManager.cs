@@ -21,6 +21,7 @@ public class MusicManager : MonoBehaviour
                 musicSources.Add(source);
                 source.volume = 0.0f;
             }
+            musicSources[0].volume = GameManager.instance.volume;
             PlayMenu();
         }
         else

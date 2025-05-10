@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
     {
         string leaderboardKey = "endlessjumperboard";
 
-        LootLockerSDKManager.SubmitScore("", highScore, leaderboardKey, "{username:"+username+",icon:"+"}" , (response) =>
+        LootLockerSDKManager.SubmitScore("", highScore, leaderboardKey, "username:"+username, (response) =>
         {
             if (!response.success)
             {

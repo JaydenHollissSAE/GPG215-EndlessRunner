@@ -31,6 +31,7 @@ public class MainMenu : MonoBehaviour
 
     public void PrivacyPolicyButton()
     {
+        MusicManager.Instance.ClickSound();
         Application.OpenURL("https://jaydenholliss.com.au/EndlessJumper/PrivacyPolicy/");
     }
 

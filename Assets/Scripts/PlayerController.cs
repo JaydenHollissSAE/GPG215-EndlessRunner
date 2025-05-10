@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         if (!noJump)
         {
             Update2();
-            moveSpeed = 5f + (gameManager.speed -1f)/5f;
+            moveSpeed = 5f + (GameManager.instance.speed -1f)/5f;
             jumpBar.transform.localScale = new Vector3((jumpMultiplier - jumpMultiplierDefault) / 2.3f, 1f, 1f);
             sprite.transform.localScale = new Vector3(1f, 1f - (jumpMultiplier - jumpMultiplierDefault) / scaleAdjustment, 1f);
             sprite.transform.localPosition = new Vector3(0f, -1f * ((jumpMultiplier - jumpMultiplierDefault) / scalePosAdjustment), 0f);
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
     {
         if (unstick > 0f) 
         {
-            transform.position = Vector2.MoveTowards(transform.position, transform.position+Vector3.down, Time.deltaTime * gameManager.speed);
+            transform.position = Vector2.MoveTowards(transform.position, transform.position+Vector3.down, Time.deltaTime * GameManager.instance.speed);
             unstick -= Time.deltaTime;
         }
 
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 applyMove = true;
-                transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.left, Time.deltaTime * gameManager.speed);
+                transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.left, Time.deltaTime * GameManager.instance.speed);
                 //Debug.Log("Moving with stage");
                 //rb.AddForce(Vector2.down);
             }

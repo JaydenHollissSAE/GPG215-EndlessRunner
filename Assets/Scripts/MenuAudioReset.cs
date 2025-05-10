@@ -7,4 +7,10 @@ public class MenuAudioReset : MonoBehaviour
     {
         MusicManager.Instance.PlayMenu();
     }
+
+    public void PlayClick()
+    {
+        MusicManager.Instance.ClickSound();
+    }
+
 }

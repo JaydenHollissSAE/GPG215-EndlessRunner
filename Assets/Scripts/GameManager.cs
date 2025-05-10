@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public bool savedGame = false;
     public float volume = 1.0f;
     public string username = "";
+    public Sprite playerSprite;
 
     [Header("Username UI")]
     public GameObject usernamePanel;
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
 
 
@@ -153,7 +155,7 @@ public class GameManager : MonoBehaviour
     {
         string leaderboardKey = "endlessjumperboard";
 
-        LootLockerSDKManager.SubmitScore("", highScore, leaderboardKey, "username:"+username , (response) =>
+        LootLockerSDKManager.SubmitScore("", highScore, leaderboardKey, "{username:"+username+",icon:"+"}" , (response) =>
         {
             if (!response.success)
             {
@@ -213,8 +215,14 @@ public class GameManager : MonoBehaviour
         UploadScore();
     }
 
+    public void SetSprite()
+    {
+        playerSprite = ImageLoader.LoadSprite();
+    }
+
     void Start()
     {
+        SetSprite();
         SaveGame();
         usernamePanel.SetActive(false);
         mainMenuPanel.SetActive(true);

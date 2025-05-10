@@ -30,7 +30,7 @@ public class ImageLoader : MonoBehaviour
         if (isSprite)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
-            LoadSprite();
+            spriteRenderer.sprite = GameManager.instance.playerSprite;
         }
         else
         {
@@ -64,10 +64,11 @@ public class ImageLoader : MonoBehaviour
             Debug.LogError("Texture file not found at path: " + filePath);
         }
     }
-    private void LoadSprite()
+
+    public static Sprite LoadSprite(string spriteFileNameInput = "sprite.png")
     {
 
-        string spritePath = Path.Combine(Application.persistentDataPath, spriteFileName);
+        string spritePath = Path.Combine(Application.persistentDataPath, spriteFileNameInput);
 
         if (File.Exists(spritePath))
         {
@@ -81,14 +82,14 @@ public class ImageLoader : MonoBehaviour
             if (texture.width > 16 || texture.height > 16)
             {
                 SpriteCreator.WriteTextureToFileFunc(texture);
-                LoadSprite();
+                return LoadSprite();
             }
             else
             {
                 Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), texture.height);
 
                 // Use the loaded texture on object
-                spriteRenderer.sprite = newSprite;
+                return newSprite;
             }
 
 
@@ -96,6 +97,8 @@ public class ImageLoader : MonoBehaviour
         else
         {
             Debug.LogError("Sprite file not found at path: " + spritePath);
+            return GameManager.instance.playerSprite;
         }
     }
+
 }

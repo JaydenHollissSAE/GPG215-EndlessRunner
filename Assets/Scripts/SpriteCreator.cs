@@ -15,6 +15,7 @@ public class SpriteCreator : MonoBehaviour
     [SerializeField] List<AudioClip> paintSounds = new List<AudioClip>();
     AudioSource audioSource;
     public GameObject activeColourObject = null;
+    public NativeGallery.Permission permission;
 
 
     public void ChangeColour(GameObject inputObject)
@@ -66,7 +67,7 @@ public class SpriteCreator : MonoBehaviour
 
 
 
-    public Texture2D LoadTexture(Texture2D originalTexture)
+    public static Texture2D LoadTexture(Texture2D originalTexture)
     {
 
         string filePath = Path.Combine(Application.persistentDataPath, "sprite.png");
@@ -108,6 +109,7 @@ public class SpriteCreator : MonoBehaviour
         }
         byte[] textureData = inputFile.EncodeToPNG();
         File.WriteAllBytes(Path.Combine(Application.persistentDataPath, "sprite.png"), textureData);
+        GameManager.instance.SetSprite();
 
     }
 
@@ -194,4 +196,30 @@ public class SpriteCreator : MonoBehaviour
         targetTexture.Apply();
         WriteTextureToFile();
     }
+
+
+    public void PickImage()
+    {
+        if (permission == NativeGallery.Permission.Granted)
+        {
+            NativeGallery.GetImageFromGallery((path) =>
+            {
+                Debug.Log("Image path: " + path);
+                if (path != null)
+                {
+                    // Create Texture from selected image
+                    Texture2D texture = NativeGallery.LoadImageAtPath(path);
+                    if (texture == null)
+                    {
+                        Debug.Log("Couldn't load texture from " + path);
+                        return;
+                    }
+
+                    WriteTextureToFile(texture);
+                    LoadTextures();
+                }
+            });
+        }
+    }
+
 }

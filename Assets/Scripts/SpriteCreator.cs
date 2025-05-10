@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static NativeGallery;
 
 public class SpriteCreator : MonoBehaviour
 {
@@ -51,18 +52,25 @@ public class SpriteCreator : MonoBehaviour
             {
                 spriteRenderers.Add(tmpObj2.transform.GetChild(j).GetComponent<SpriteRenderer>());
             }
-            
+
         }
+        WhiteEdges();
         LoadTextures();
-        for (int i = 0;i < allPixels.Length; i++)
+
+
+    }
+
+    private void WhiteEdges()
+    {
+        for (int i = 0; i < allPixels.Length; i++)
         {
             if (i < 16 || i > 240 || i % 16 == 0 || i % 16 == 15)
             {
                 UpdatePixel(i % 16, Mathf.FloorToInt(i / 16), Color.white, true);
             }
-            
+
         }
-        
+
     }
 
 
@@ -200,7 +208,8 @@ public class SpriteCreator : MonoBehaviour
 
     public void PickImage()
     {
-        if (permission == NativeGallery.Permission.Granted)
+        if (true)
+        //if (permission == NativeGallery.Permission.Granted)
         {
             NativeGallery.GetImageFromGallery((path) =>
             {
@@ -208,13 +217,15 @@ public class SpriteCreator : MonoBehaviour
                 if (path != null)
                 {
                     // Create Texture from selected image
-                    Texture2D texture = NativeGallery.LoadImageAtPath(path);
+                    Texture2D texture = NativeGallery.LoadImageAtPath(path, -1, false);
                     if (texture == null)
                     {
                         Debug.Log("Couldn't load texture from " + path);
                         return;
                     }
 
+                    targetTexture = texture;
+                    WhiteEdges();
                     WriteTextureToFile(texture);
                     LoadTextures();
                 }

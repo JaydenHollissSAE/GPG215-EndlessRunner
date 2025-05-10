@@ -72,3 +72,12 @@ MonoBehaviour:
   resetScores: 1
   highScoreText: {fileID: 0}
   currentScoreText: {fileID: 0}
+  savedGame: 0
+  volume: 1
+  username: 
+  playerSprite: {fileID: -1119269512147688955, guid: 0d6d651c699ed3049a53928882e814ad, type: 3}
+  usernamePanel: {fileID: 0}
+  usernameInputField: {fileID: 0}
+  usernameConfirmButton: {fileID: 0}
+  usernameErrorText: {fileID: 0}
+  mainMenuPanel: {fileID: 0}

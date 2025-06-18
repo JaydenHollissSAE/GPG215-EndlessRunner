@@ -11,6 +11,7 @@ public class DataSetter : MonoBehaviour
         gameManager.speed = 1f;
         gameManager.gameStartTime = Time.time;
         gameManager.currentScore = 0;
+        gameManager.currentAudio = 0;
         gameManager.resetScores = true;
         gameManager.gameActive = true;
     }

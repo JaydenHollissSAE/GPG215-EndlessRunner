@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private float scaleAdjustment = 2.3f;
     private float scalePosAdjustment = 5f;
     AudioSource audioSource;
+    AudioSource audioSource2;
     [SerializeField] private AudioClip jumpSound;
     [SerializeField] private AudioClip landSound;
     private bool landSoundPlayed = false;
@@ -31,7 +32,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource2 = transform.GetChild(0).GetComponent<AudioSource>();
         audioSource.volume = 1f * GameManager.instance.volume;
+        audioSource2.volume = 1f * GameManager.instance.volume;
         jumpMultiplierDefault = jumpMultiplier;
         sprite = transform.GetChild(0).gameObject;
         rb = GetComponent<Rigidbody2D>();
@@ -62,7 +65,7 @@ public class PlayerController : MonoBehaviour
             else if ((Input.GetKeyUp(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && applyMove)
             {
                 StartCoroutine(AudioFadeEffects.FadeOut(audioSource, 0.15f));
-                audioSource.PlayOneShot(jumpSound);
+                audioSource2.PlayOneShot(jumpSound);
                 landSoundPlayed = false;
                 //audioSource.Stop();
                 //jumpEndTime = Time.deltaTime + 0.5f;

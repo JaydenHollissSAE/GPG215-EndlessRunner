@@ -9,6 +9,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 112630
   packageName: Native Gallery for Android & iOS
-  packageVersion: 1.9.0
+  packageVersion: 1.9.1
   assetPath: Assets/Plugins/NativeGallery/NativeGallery.Runtime.asmdef
-  uploadId: 746915
+  uploadId: 757769

@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveDirection;
     private bool applyMove = true;
-    private float jumpEndTime = 0.0f;
     public bool noJump = false;
     private float jumpMultiplier = 0.5f;
     private float jumpMultiplierDefault;

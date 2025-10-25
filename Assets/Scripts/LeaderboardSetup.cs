@@ -17,7 +17,7 @@ public class LeaderboardSetup : MonoBehaviour
 
         for (int i = 0; i < placements.Count; i++)
         {
-            if (i >= leaderBoardItems.Count) placements[i].active = false;
+            if (i >= leaderBoardItems.Count) placements[i].SetActive(false);
             else
             {
                 for (int o = 0; o < placements[i].transform.childCount; o++)

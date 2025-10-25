@@ -32,7 +32,7 @@ public class BlockCluster : MonoBehaviour
         {
             for (int i = 0;i < blocks.Count;i++)
             {
-                if (blocks[i].active)
+                if (blocks[i].activeSelf)
                 {
                     SetTexture(blocks[i]);
                 }

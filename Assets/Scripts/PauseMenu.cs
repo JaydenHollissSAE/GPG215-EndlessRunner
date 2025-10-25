@@ -25,6 +25,7 @@ public class PauseMenu : MonoBehaviour
     public void BackToHome(int sceneID)
     {
         MusicManager.Instance.ClickSound();
+        GameManager.instance.gameActive = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneID);
     }
